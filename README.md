@@ -1,10 +1,13 @@
 # Adnroid-YouTube-Video-Downloader-Convert-mp3-using-ytdlp-FFmpeg
 plug-in python library ytdlp into android and use it to download video from YouTube and also convert that video into a audio file using FFmpeg library.
 
+# YouTube Video Download
+    Paste a YouTuve video link and select a folder where you want to save the final file (MP3).
+    Initially video file downloaded inside internal stoage (data/data/com.bimalghara.mp3downloader/no-backup/downloader)
+
 # Design
     Design is used combination of Material and Appcompat.
-    Both Day & Night Themes are mainaitant even though the values are same which is dark - this is something that i just choosed and if we want to have both day & night we don't have to modify the designing/xml layouts, Instead just asign the day value in day theme file and vola!
-    I have choosen dark theme because, content is very less moreover they are plain text - therefore, dark theme is easy to highlight plain text and looks more attractive..
+    Both Day & Night Themes are mainaitant even though the values are same which is day - this is something that i just choosed.
     All colors are maintained in material attributes therefoew, if shioft to multi-module we will have direct access of the base theme.
     All size (width, height) are from a single resource that is dimen.xml, nothing hardcoded in the xml file directly, so, if we need to modify size - its just one place that you need to go and make the changes.
 
@@ -40,6 +43,10 @@ plug-in python library ytdlp into android and use it to download video from YouT
     Hilt for DI
     Retrofit for RestAPI
     ViewBinding for views
+
+# Library
+    YT-DLP
+    FFmpeg
 
 # Additional Features
     Network monitor - As app having network call, we are observing the network availibility. and when the RestAPI call  
