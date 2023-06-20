@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Button" parent="Widget.Material3.Button">
+        <item name="fontFamily">@font/plus_jakarta_sans_bold</item>
+        <item name="android:fontFamily">@font/plus_jakarta_sans_bold</item>
+        <item name="shapeAppearanceOverlay">@style/MyShapeAppearance</item>
+        <item name="android:textSize">@dimen/text_title</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="MyShapeAppearance">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/corners_radius</item>
+    </style>
+</resources>

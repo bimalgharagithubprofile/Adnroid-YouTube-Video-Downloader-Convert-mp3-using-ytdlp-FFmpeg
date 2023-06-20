@@ -1,0 +1,31 @@
+package com.bimalghara.mp3downloader.data.error
+
+/**
+ * Created by BimalGhara
+ */
+
+const val ERROR_CUSTOM_EXCEPTION = "-7000"
+
+const val ERROR_DEFAULT = "-7111"
+
+const val ERROR_NO_INTERNET_CONNECTION = "-7001"
+const val ERROR_NETWORK_ERROR = "-7002"
+const val ERROR_SOCKET_TIMEOUT = "-7003"
+
+const val ERROR_NO_PERMISSION = "-7004"
+const val ERROR_FAILED_ROOT_FOLDER = "-7023"
+const val ERROR_SELECT_DIRECTORY_FAILED = "-7005"
+const val ERROR_PROTECTED_DIRECTORY = "-7024"
+const val ERROR_WRITE_PERMISSION = "-7020"
+
+const val ERROR_EMPTY_FIELDS = "-7006"
+const val ERROR_INVALID_DIRECTORY = "-7007"
+const val ERROR_INVALID_URL = "-7008"
+const val ERROR_INVALID_VIDEO_TITLE = "-70022"
+const val ERROR_INVALID_VIDEO_DURATION = "-70023"
+const val ERROR_INVALID_EXTENSION = "-70021"
+const val ERROR_INVALID_AUDIO_PATH = "-7009"
+const val ERROR_INVALID_DESTINATION_PATH = "-7010"
+
+
+

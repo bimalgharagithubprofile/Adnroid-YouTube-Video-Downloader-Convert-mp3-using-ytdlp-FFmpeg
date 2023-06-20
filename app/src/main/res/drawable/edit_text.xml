@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <stroke
+        android:width="@dimen/_1sdp"
+        android:color="?attr/colorOnSurfaceVariant" />
+    <corners android:radius="@dimen/corners_radius"/>
+    <solid android:color="?attr/colorOnSurface" />
+
+    <padding
+        android:bottom="@dimen/input_padding_height"
+        android:left="@dimen/input_padding_width"
+        android:right="@dimen/input_padding_width"
+        android:top="@dimen/input_padding_height"
+        />
+
+</shape>

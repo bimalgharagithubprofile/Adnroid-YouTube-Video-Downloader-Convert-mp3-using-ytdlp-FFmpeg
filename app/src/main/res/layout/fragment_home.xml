@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
+    android:paddingStart="@dimen/_20sdp"
+    android:paddingTop="@dimen/_48sdp"
+    android:paddingEnd="@dimen/_20sdp"
+    android:paddingBottom="@dimen/_48sdp"
+    tools:context=".presentation.home.HomeFragment">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/headerIcon"
+        android:layout_width="@dimen/_24sdp"
+        android:layout_height="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/yt" />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/headerTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginBottom="@dimen/_4sdp"
+        android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+        android:text="@string/mp3_downloader"
+        android:textColor="?attr/titleTextColor"
+        android:textSize="@dimen/text_header"
+        app:layout_constraintStart_toEndOf="@+id/headerIcon"
+        app:layout_constraintTop_toTopOf="@+id/headerIcon"
+        app:layout_constraintBottom_toBottomOf="@+id/headerIcon" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/lbLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_22sdp"
+        android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+        android:text="@string/youtube_link"
+        android:textColor="?attr/titleTextColor"
+        android:textSize="@dimen/text_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/headerTitle" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etLink"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/input_height"
+        android:layout_marginTop="@dimen/_13sdp"
+        android:background="@drawable/edit_text"
+        android:drawableStart="@drawable/link"
+        android:drawablePadding="@dimen/input_padding_width"
+        android:ellipsize="end"
+        android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+        android:gravity="center_vertical"
+        android:inputType="text"
+        android:maxLines="1"
+        android:scrollHorizontally="true"
+        android:textColor="?attr/titleTextColor"
+        android:textSize="@dimen/text_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lbLink" />
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/btnClearLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/etLink"
+        app:layout_constraintTop_toTopOf="@+id/etLink"
+        app:layout_constraintBottom_toBottomOf="@+id/etLink"
+        android:layout_marginEnd="@dimen/_2sdp"
+        android:padding="@dimen/_10sdp"
+        app:srcCompat="@drawable/close"
+        android:background="?attr/colorOnSurface"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/lbDestinationFolder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_13sdp"
+        android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+        android:text="@string/destination_folder"
+        android:textColor="?attr/titleTextColor"
+        android:textSize="@dimen/text_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etLink" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/etDestinationFolder"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/input_height"
+        android:layout_marginTop="@dimen/_13sdp"
+        android:background="@drawable/edit_text"
+        android:drawableStart="@drawable/folder"
+        android:drawablePadding="@dimen/input_padding_width"
+        android:focusable="false"
+        android:fontFamily="@font/plus_jakarta_sans_semi_bold"
+        android:gravity="center_vertical"
+        android:textColor="?attr/titleTextColor"
+        android:textSize="@dimen/text_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lbDestinationFolder" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivDestinationFolderHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_2sdp"
+        app:srcCompat="@drawable/info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/lbDestinationFolderHint"
+        app:layout_constraintBottom_toBottomOf="@+id/lbDestinationFolderHint"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/lbDestinationFolderHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_13sdp"
+        android:layout_marginStart="@dimen/hint_icon_padding"
+        android:enabled="false"
+        android:fontFamily="@font/plus_jakarta_sans_medium"
+        android:gravity="center_vertical"
+        android:text="@string/where_you_want_to_save_the_mp3"
+        android:textColor="?attr/hintTextColor"
+        android:textSize="@dimen/text_hint"
+        app:layout_constraintStart_toEndOf="@+id/ivDestinationFolderHint"
+        app:layout_constraintTop_toBottomOf="@+id/etDestinationFolder" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDownload"
+        style="@style/Widget.Material3.Button.IconButton.Filled"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/input_height"
+        android:layout_marginTop="@dimen/_14sdp"
+        android:backgroundTint="@color/material_state_background_color"
+        android:text="@string/download"
+        android:textColor="@color/material_state_text_color"
+        android:theme="@style/Theme.Button"
+        app:iconGravity="textStart"
+        app:iconPadding="@dimen/_6sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lbDestinationFolderHint" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

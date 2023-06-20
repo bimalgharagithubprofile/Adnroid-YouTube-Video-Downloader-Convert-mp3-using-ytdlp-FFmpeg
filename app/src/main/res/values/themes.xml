@@ -1,0 +1,29 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Base" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purple</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <item name="transitionDisable">@color/purple_300</item>
+
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorSurface</item>
+
+        <!-- Surface color -->
+        <item name="colorSurface">@color/white_8</item>
+        <item name="colorOnSurface">@color/white_10</item>
+        <item name="colorOnSurfaceVariant">@color/grey_100</item>
+
+        <item name="titleTextColor">@color/black</item>
+        <item name="hintTextColor">@color/grey</item>
+
+        <item name="tickColorActive">@color/green</item>
+        <item name="tickColorInactive">@color/red</item>
+
+    </style>
+
+
+
+</resources>

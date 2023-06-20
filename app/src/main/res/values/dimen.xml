@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="text_header">@dimen/_18sdp</dimen>
+    <dimen name="text_title">@dimen/_13sdp</dimen>
+    <dimen name="text_hint">@dimen/_10sdp</dimen>
+
+    <dimen name="input_height">@dimen/_50sdp</dimen>
+
+    <dimen name="track_thickness">@dimen/_1sdp</dimen>
+
+    <dimen name="corners_radius">@dimen/_7sdp</dimen>
+
+    <dimen name="input_padding_width">@dimen/_12sdp</dimen>
+    <dimen name="input_padding_height">@dimen/_3sdp</dimen>
+
+    <dimen name="hint_icon_padding">@dimen/_5sdp</dimen>
+
+
+</resources>

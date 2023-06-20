@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">MP3 Downloader</string>
+
+    <!--permissions-->
+    <string name="dialog_permission_title">Permission required</string>
+    <string name="dialog_permission_default_message">Default message</string>
+    <string name="dialog_permission_button_positive">OK</string>
+
+    <!--error-->
+    <string name="no_internet">Please check your internet connection</string>
+    <string name="network_error">Network error, could get data,please try again!</string>
+    <string name="socket_timeout">Connection timeout!</string>
+    <string name="error_default">Something went wrong!</string>
+    <string name="error_no_permission">Runtime permissions required !</string>
+    <string name="error_select_directory_failed">Failed to select directory!</string>
+    <string name="error_write_permission">Write permission required to save files!</string>
+    <string name="error_empty_fields">Url is invalid! Try another url.</string>
+    <string name="error_invalid_directory">Select a valid destination directory!</string>
+    <string name="error_invalid_url">Url is not a valid!</string>
+    <string name="error_invalid_video_title">Video title is incorrect!</string>
+    <string name="error_failed_to_create_root_folder">Failed to create root folder!</string>
+    <string name="error_invalid_video_duration">Video duration is not enough to convert!</string>
+    <string name="error_protected_directory">Create or choose another folder.\nThis is to protect privacy</string>
+    <string name="error_invalid_audio_path">Audio file not found !</string>
+    <string name="error_invalid_destination_path">Destination folder is wrong!</string>
+    <string name="error_invalid_extension">Bad fIle extension!</string>
+
+
+    <string name="mp3_downloader">MP3 Downloader</string>
+    <string name="youtube_link">YouTube Link</string>
+    <string name="destination_folder">Destination Folder</string>
+    <string name="where_you_want_to_save_the_mp3">Where you want to save the MP3</string>
+    <string name="download">Download</string>
+    <string name="grabbing">Grabbing info…</string>
+    <string name="action_downloading">Downloading…</string>
+    <string name="action_converting">Converting…</string>
+    <string name="action_saving">Saving…</string>
+    <string name="action_success">Success</string>
+    <string name="action_failed">Failed</string>
+    <string name="message_success">MP3 successfully saved into selected folder</string>
+    <string name="download_another">Download Another MP3</string>
+
+</resources>
