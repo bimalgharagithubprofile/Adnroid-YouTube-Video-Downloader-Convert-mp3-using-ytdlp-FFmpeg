@@ -1,9 +1,15 @@
 # Adnroid-YouTube-Video-Downloader-Convert-mp3-using-ytdlp-FFmpeg
 plug-in python library ytdlp into android and use it to download video from YouTube and also convert that video into a audio file using FFmpeg library.
 
-# YouTube Video Download
+# YouTube Video Download (YT-DLP)
     Paste a YouTuve video link and select a folder where you want to save the final file (MP3).
-    Initially video file downloaded inside internal stoage (data/data/com.bimalghara.mp3downloader/no-backup/downloader)
+    Initially video file downloaded inside internal stoage (data/data/com.bimalghara.mp3downloader/no-backup/downloader/video)
+
+# Convert Video into HD Audio (FFmpeg)
+    Video file is executed in FFmpeg with high bitrate to maintaing the HE audio.
+    converted mp3 is kept inside  internal stoage (data/data/com.bimalghara.mp3downloader/no-backup/downloader/audio)
+    Video file deleted as no longer needed
+    Audio file moved in selected folder by the user
 
 # Design
     Design is used combination of Material and Appcompat.
@@ -25,7 +31,6 @@ plug-in python library ytdlp into android and use it to download video from YouT
     Corutines Scope - proper scoping of therad(s) execution
     Flow - Executable task in dedicated thread.
     Resource Wrapper - data transaction between layers are wrapped in sealed class, this is for keep the data impact with all possible state and generic.
-    safe api call - every api call is wrapped in a safeApiCall block, which is one generic place to handle the api call state (suucess, failed for no-internet, failed for un-authorised, etc...)
     Csutom Exception - any exception is mapped in Error module - we can easily change the error message or add new message from only one resource and map it.
     Use cases - all tasks are hidden and privdede a use case class to the upper layer to call/execture and get some data(Resource Wrappered)  
     Mappers - as remote data class/structure and local data class/structure shouldn't be same, DTO and Entity used. they are converting using mapper class
@@ -41,12 +46,13 @@ plug-in python library ytdlp into android and use it to download video from YouT
 
 # Tools & Jetpack
     Hilt for DI
-    Retrofit for RestAPI
     ViewBinding for views
+    sdp for size
 
 # Library
     YT-DLP
     FFmpeg
+    Retrfit
 
 # Additional Features
     Network monitor - As app having network call, we are observing the network availibility. and when the RestAPI call  
