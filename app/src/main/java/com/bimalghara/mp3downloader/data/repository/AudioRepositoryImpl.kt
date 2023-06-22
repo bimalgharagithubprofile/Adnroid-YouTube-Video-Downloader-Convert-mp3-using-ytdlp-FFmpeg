@@ -1,14 +1,15 @@
 package com.bimalghara.mp3downloader.data.repository
 
+import android.content.ContentResolver
 import android.content.Context
+import android.net.Uri
 import android.util.Log
+import androidx.core.net.toUri
+import androidx.documentfile.provider.DocumentFile
 import com.bimalghara.mp3downloader.common.dispatcher.DispatcherProviderSource
 import com.bimalghara.mp3downloader.data.error.CustomException
 import com.bimalghara.mp3downloader.domain.repository.AudioRepositorySource
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.io.OutputStream
+import java.io.*
 import java.nio.ByteBuffer
 import javax.inject.Inject
 
@@ -21,7 +22,7 @@ class AudioRepositoryImpl @Inject constructor(
     override suspend fun requestSaveAudio(
         appContext: Context,
         audioPath: String,
-        destinationPath: String,
+        destinationUri: Uri,
         callback: (Int) -> Unit
     ) {
         try {
@@ -29,37 +30,43 @@ class AudioRepositoryImpl @Inject constructor(
             val fn = destinationAudioRawName.split(".")
             val destinationAudioRawNameWithoutExt = fn[0]
 
-            val targetFolder = File(destinationPath)
-            val numberOfFileAlreadyExist = targetFolder.listFiles()?.filter { it.name.startsWith(destinationAudioRawNameWithoutExt) }?.size
-            if (numberOfFileAlreadyExist != null && numberOfFileAlreadyExist > 0) {
+            val targetDocumentFile = DocumentFile.fromTreeUri(appContext, destinationUri)
+            Log.e(logTag, "saving targetDocumentFile: ${targetDocumentFile?.uri?.path}")
+            val numberOfFileAlreadyExist = targetDocumentFile!!.listFiles().filter { it.name?.startsWith(destinationAudioRawNameWithoutExt) ?: false }.size
+            if (numberOfFileAlreadyExist > 0) {
                 destinationAudioRawName = "$destinationAudioRawNameWithoutExt ($numberOfFileAlreadyExist).${fn.last()}"
             }
 
-            val newAudioFile = File(destinationPath, destinationAudioRawName)
+            val newAudioDocumentFile = targetDocumentFile.createFile("audio/${fn.last()}", destinationAudioRawName)
+            Log.e(logTag, "saving newAudioDocumentFile: ${newAudioDocumentFile?.uri?.path}")
 
-            val sourceFile = FileInputStream(audioPath).channel
-            val destinationFile = FileOutputStream(newAudioFile).channel
+            val contentResolver: ContentResolver = appContext.contentResolver
 
-            val fileSize = sourceFile.size()
-            var totalBytesCopied = 0L
+            val sourceFile = File(audioPath)
+            val inputStream = contentResolver.openInputStream(sourceFile.toUri())
+            val totalBytes = sourceFile.length()
+            var copiedBytes: Long = 0
 
-            val bufferSize = 8 * 1024 // 8KB buffer size
-            val buffer = ByteBuffer.allocate(bufferSize)
+            val outputStream = contentResolver.openOutputStream(newAudioDocumentFile!!.uri)
 
-            while (sourceFile.read(buffer) != -1) {
-                buffer.flip()
-                destinationFile.write(buffer)
-                buffer.clear()
+            val buffer = ByteArray(8 * 1024)
+            var bytesRead: Int
 
-                totalBytesCopied += bufferSize.toLong()
-                val progress = ((totalBytesCopied.toDouble() / fileSize.toDouble()) * 100).toInt()
-                Log.e(logTag, "saving progress: $progress")
-                if (progress < 100)//100 will be sent at last(check end of this function block - callback(100))
-                    callback(progress)
+            var previousProgress = 0
+            while (inputStream!!.read(buffer).also { bytesRead = it } != -1) {
+                outputStream!!.write(buffer, 0, bytesRead)
+                copiedBytes += bytesRead.toLong()
+
+                val currentProgress = (copiedBytes.toFloat() / totalBytes.toFloat() * 100).toInt()
+                if (currentProgress != previousProgress && currentProgress<100) {//100 will be sent at last(check end of this function block - callback(100))
+                    Log.e(logTag, "saving progress: $currentProgress")
+                    callback(currentProgress)
+                    previousProgress = currentProgress
+                }
             }
 
-            sourceFile.close()
-            destinationFile.close()
+            inputStream.close()
+            outputStream!!.close()
 
             //delete converted audio file as no longer needed
             val audioFile = File(audioPath)

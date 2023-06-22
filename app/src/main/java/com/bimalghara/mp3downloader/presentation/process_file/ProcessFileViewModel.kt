@@ -107,7 +107,7 @@ class ProcessFileViewModel @Inject constructor(
 
     fun saveAudio(appContext: Context, audioPath: String?) = viewModelScope.launch(dispatcherProviderSource.io) {
         _saveAudioJob?.cancel()//to prevent creating duplicate flow, fun is called multiple times
-        _saveAudioJob = saveAudioUseCase(appContext, audioPath, videoDetailsLiveData.value?.selectedPath).onEach {
+        _saveAudioJob = saveAudioUseCase(appContext, audioPath, videoDetailsLiveData.value?.selectedUri).onEach {
             when (it) {
                 is ResourceWrapper.Loading -> { _saveAudioLiveData.value = ResourceWrapper.Loading() }
                 is ResourceWrapper.Success -> {

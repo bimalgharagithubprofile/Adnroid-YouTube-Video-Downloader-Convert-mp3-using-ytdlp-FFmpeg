@@ -1,21 +1,16 @@
 package com.bimalghara.mp3downloader.presentation.home
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
-import android.os.storage.StorageManager
-import android.provider.DocumentsContract
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bimalghara.mp3downloader.R
 import com.bimalghara.mp3downloader.data.error.*
@@ -25,15 +20,10 @@ import com.bimalghara.mp3downloader.utils.*
 import com.bimalghara.mp3downloader.utils.FileUtil.protectedDirectories
 import com.bimalghara.mp3downloader.utils.permissions.PermissionManager
 import com.bimalghara.mp3downloader.utils.permissions.Permissions
-import com.google.android.material.progressindicator.CircularProgressIndicator.INDICATOR_DIRECTION_CLOCKWISE
 import com.google.android.material.progressindicator.CircularProgressIndicator.INDICATOR_DIRECTION_COUNTERCLOCKWISE
 import com.google.android.material.progressindicator.CircularProgressIndicatorSpec
 import com.google.android.material.progressindicator.IndeterminateDrawable
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import java.io.File
 
 
 /**
@@ -53,18 +43,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private val startActivityForDirectoryPickUp =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                val intentData = result.data
-                val uri = intentData?.data
-                Log.e(logTag, "selected directory: ${uri.toString()}")
-                if (uri != null && context != null) {
-                    val path: String? = FileUtil.getFullPathFromTreeUri(uri, context!!)
-                    Log.e(logTag, "selected path: $path")
-                    if (!path.isNullOrEmpty()) {
-                        homeViewModel.setSelectedPath(path)
-                    } else {
-                        homeViewModel.showError(CustomException(cause = ERROR_SELECT_DIRECTORY_FAILED))
-                    }
-                }
+                val treeUri = result.data?.data
+                Log.e(logTag, "selected treeUri: ${treeUri.toString()}")
+                if (treeUri != null && context != null) {
+                    val treeDocument:DocumentFile? = DocumentFile.fromTreeUri(context!!, treeUri)
+                    Log.e(logTag, "selected treeDocument: ${treeDocument?.uri?.path}")
+                    if(treeDocument != null){
+                        if(treeDocument.canWrite()){
+                            homeViewModel.setSelectedPath(treeDocument)
+                        } else homeViewModel.showError(CustomException(cause = ERROR_WRITE_PERMISSION))
+                    } else homeViewModel.showError(CustomException(cause = ERROR_SELECT_DIRECTORY_FAILED))
+                } else homeViewModel.showError(CustomException(cause = ERROR_SELECT_DIRECTORY_FAILED))
             }
         }
 
@@ -123,10 +112,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         observe(homeViewModel.selectedPathLiveData) {
             Log.d(logTag, "observe selectedPathLiveData | $it")
-            if(it.isNotEmpty()) {
-                val folder = it.split("/").last()
+            if(it?.uri?.path != null) {
+                val folder = it.uri.path!!.split("/").last()
                 if (protectedDirectories.contains(folder)) {
-                    homeViewModel.setSelectedPath("")
+                    homeViewModel.setSelectedPath(null)
                     homeViewModel.showError(CustomException(cause = ERROR_PROTECTED_DIRECTORY))
                 } else {
                     binding.etDestinationFolder.text = folder
@@ -142,7 +131,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 }
                 is ResourceWrapper.Success -> {
                     it.data!!.also { vd ->
-                        vd.selectedPath = homeViewModel.selectedPathLiveData.value
+                        vd.selectedUri = homeViewModel.selectedPathLiveData.value?.uri
                     }
                     findNavController().navigate(
                         HomeFragmentDirections.actionUsersFragmentToProcessFileFragment(it.data)

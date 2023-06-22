@@ -13,7 +13,7 @@
     <string name="error_default">Something went wrong!</string>
     <string name="error_no_permission">Runtime permissions required !</string>
     <string name="error_select_directory_failed">Failed to select directory!</string>
-    <string name="error_write_permission">Write permission required to save files!</string>
+    <string name="error_write_permission">No write permission to save files!</string>
     <string name="error_empty_fields">Url is invalid! Try another url.</string>
     <string name="error_invalid_directory">Select a valid destination directory!</string>
     <string name="error_invalid_url">Url is not a valid!</string>

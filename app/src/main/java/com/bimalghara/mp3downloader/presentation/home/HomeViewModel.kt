@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import android.text.Editable
 import android.util.Log
+import androidx.documentfile.provider.DocumentFile
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -37,8 +38,8 @@ class HomeViewModel @Inject constructor(
 ) : BaseViewModel(dispatcherProviderSource, errorDetailsUseCase) {
     private val logTag = javaClass.simpleName
 
-    private val _selectedPathLiveData = MutableLiveData<String>(null)
-    val selectedPathLiveData: LiveData<String> get() = _selectedPathLiveData
+    private val _selectedPathLiveData = MutableLiveData<DocumentFile?>(null)
+    val selectedPathLiveData: LiveData<DocumentFile?> get() = _selectedPathLiveData
 
     private var _videoInfoJob: Job? = null
     private val _videoDetailsLiveData = MutableLiveData<ResourceWrapper<VideoDetails>>()
@@ -46,8 +47,8 @@ class HomeViewModel @Inject constructor(
 
 
 
-    fun setSelectedPath(path: String) {
-        _selectedPathLiveData.value = path
+    fun setSelectedPath(documentFile: DocumentFile?) {
+        _selectedPathLiveData.value = documentFile
     }
 
     private suspend fun getNetworkStatus(): NetworkConnectivitySource.Status {
@@ -75,7 +76,7 @@ class HomeViewModel @Inject constructor(
     */
     private fun requestVideoDataFromCloud(appContext: Context, url: Editable?) {
         _videoInfoJob?.cancel()//to prevent creating duplicate flow, fun is called multiple times
-        _videoInfoJob = requestVideoInfoFromNetworkUseCase(appContext ,url, selectedPathLiveData.value).onEach {
+        _videoInfoJob = requestVideoInfoFromNetworkUseCase(appContext ,url, selectedPathLiveData.value?.uri?.path).onEach {
             _videoDetailsLiveData.value = it
             when (it) {
                 is ResourceWrapper.Error -> showError(it.error)

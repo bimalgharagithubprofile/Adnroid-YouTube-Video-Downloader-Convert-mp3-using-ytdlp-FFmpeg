@@ -1,6 +1,7 @@
 package com.bimalghara.mp3downloader.domain.use_case
 
 import android.content.Context
+import android.net.Uri
 import android.util.Log
 import com.bimalghara.mp3downloader.common.dispatcher.DispatcherProviderSource
 import com.bimalghara.mp3downloader.data.error.CustomException
@@ -30,17 +31,17 @@ class SaveAudioUseCase(
     operator fun invoke(
         appContext: Context,
         audioPath: String?,
-        destinationPth: String?
+        destinationUri: Uri?
     ): Flow<ResourceWrapper<FileProcessState>> = callbackFlow {
         send(ResourceWrapper.Loading())
 
         if(audioPath.isNullOrEmpty()) {
             send(ResourceWrapper.Error(CustomException(cause = ERROR_INVALID_AUDIO_PATH)))
-        } else if(destinationPth.isNullOrEmpty()) {
+        } else if(destinationUri == null) {
             send(ResourceWrapper.Error(CustomException(cause = ERROR_INVALID_DESTINATION_PATH)))
         } else {
             try {
-                audioRepositorySource.requestSaveAudio(appContext, audioPath, destinationPth) {
+                audioRepositorySource.requestSaveAudio(appContext, audioPath, destinationUri) {
                     Log.e(logTag, "requestSaveAudio callback : $it")
 
                     val data = FileProcessState(

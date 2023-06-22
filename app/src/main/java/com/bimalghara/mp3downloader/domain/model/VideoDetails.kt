@@ -1,11 +1,12 @@
 package com.bimalghara.mp3downloader.domain.model
 
+import android.net.Uri
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class VideoDetails(
-    var selectedPath: String? = null, //destination folder selected by user
+    var selectedUri: Uri?, //destination folder selected by user
 
     var title: String? = null,
     var likeCount: String? = null,

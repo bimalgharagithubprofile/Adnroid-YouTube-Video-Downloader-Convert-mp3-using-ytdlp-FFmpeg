@@ -1,6 +1,7 @@
 package com.bimalghara.mp3downloader.domain.repository
 
 import android.content.Context
+import android.net.Uri
 
 
 /**
@@ -10,6 +11,6 @@ import android.content.Context
 interface AudioRepositorySource {
 
 
-    suspend fun requestSaveAudio(appContext: Context, audioPath: String, destinationPath: String, callback: (Int) -> Unit)
+    suspend fun requestSaveAudio(appContext: Context, audioPath: String, destinationUri: Uri, callback: (Int) -> Unit)
 
 }

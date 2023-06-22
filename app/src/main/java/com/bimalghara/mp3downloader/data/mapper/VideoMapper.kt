@@ -6,6 +6,8 @@ import com.bimalghara.mp3downloader.domain.model.VideoDetails
 fun VideoInfoDTO.toDomain() : VideoDetails {
 
     return VideoDetails(
+        selectedUri = null,
+
         title = title,
         likeCount = likeCount,
         viewCount = viewCount,
@@ -13,6 +15,6 @@ fun VideoInfoDTO.toDomain() : VideoDetails {
         duration = duration,
         fileSizeApproximate = fileSizeApproximate,
         url = url,
-        ext = ext,
+        ext = ext
     )
 }
