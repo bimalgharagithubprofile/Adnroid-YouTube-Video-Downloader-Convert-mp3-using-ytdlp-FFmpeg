@@ -49,6 +49,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     val treeDocument:DocumentFile? = DocumentFile.fromTreeUri(context!!, treeUri)
                     Log.e(logTag, "selected treeDocument: ${treeDocument?.uri?.path}")
                     if(treeDocument != null){
+                        Log.e(logTag, "selected treeDocument canWrite: ${treeDocument.canWrite()}")
                         if(treeDocument.canWrite()){
                             homeViewModel.setSelectedPath(treeDocument)
                         } else homeViewModel.showError(CustomException(cause = ERROR_WRITE_PERMISSION))
